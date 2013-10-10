@@ -12,6 +12,7 @@ class UsersController < ApplicationController
 		acceptable_params = params.require(:user).permit(:username, :password, :password_confirmation, :email)	
 		@user = User.new(acceptable_params)
 		if @user.save then
+      flash[:success] = "Welcome to the site: #{@user.username}"
 			#redirect_to user_path(@user) Same thing as line below.
 			redirect_to @user # Basically give it a 301, then request GET with user details.
 		else
