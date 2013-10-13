@@ -1,4 +1,9 @@
 GameContestServer::Application.routes.draw do
+  #get 'users/index', as: "root"
+  root to: 'users#index'
+  #root :to => 'users#index'
+  #root_url => '/users(.:format)'
+  
 get 'users/new', as: "signup"
 resources :users
   # The priority is based upon order of creation: first created -> highest priority.
