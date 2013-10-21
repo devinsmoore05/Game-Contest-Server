@@ -8,20 +8,31 @@ class UsersController < ApplicationController
 	end
 
 	def new
+    if !logged_in?
 		@user = User.new
+    else
+      flash[:warning] = "You must log out to create a user!"
+      redirect_to root_path
+    end
 	end
 
 	def create
-		acceptable_params = params.require(:user).permit(:username, :password, :password_confirmation, :email)	
-		@user = User.new(acceptable_params)
-		if @user.save then
-      flash[:success] = "Welcome to the site: #{@user.username}"
-			#redirect_to user_path(@user) Same thing as line below.
-			redirect_to @user # Basically give it a 301, then request GET with user details.
-		else
-			#This will keep whatever elements they previously typed that worked. We remember.
-			render 'new'
-		end
+    if !logged_in?
+		  acceptable_params = params.require(:user).permit(:username, :password, :password_confirmation, :email)	
+		  @user = User.new(acceptable_params)
+      if @user.save
+        cookies.signed[:user_id] = @user.id
+        flash[:success] = "Welcome to the site #{@user.username}"
+			  #redirect_to user_path(@user) Same thing as line below.
+			  redirect_to @user # Basically give it a 301, then request GET with user details.
+		  else
+			  #This will keep whatever elements they previously typed that worked. We remember.
+			  render 'new'
+		  end
+    else
+      flash[:warning] = "You must log out to create a user!"
+      redirect_to root_path
+    end
 	end
 
 	def show
@@ -35,6 +46,7 @@ class UsersController < ApplicationController
 	def update
 		@user = User.find(params[:id])
 		if @user.update(acceptable_params)
+      flash[:success] = "User was updated"
 			redirect_to @user
 		else
 			render 'edit'
@@ -43,8 +55,14 @@ class UsersController < ApplicationController
 
 	def destroy
 		@user = User.find(params[:id])
-		@user.destroy
-		redirect_to users_path
+    if !current_user?(@user)
+		  @user.destroy
+      flash[:success] = "User was deleted"
+		  redirect_to users_path
+    else
+      flash[:danger] = "Don't delete yourself!"
+      redirect_to root_path
+    end
 	end
 
 
@@ -56,12 +74,18 @@ class UsersController < ApplicationController
 		end
     
     def ensure_user_logged_in
-      redirect_to login_path unless logged_in?
+      unless logged_in? #Unless logged_in? is TRUE.
+        flash[:warning] = "Not logged in"
+      redirect_to login_path 
+      end
     end
     
     def ensure_correct_user
       @user = User.find(params[:id])
-      redirect_to users_path unless current_user?(params[@user])
+      unless current_user?(@user)
+        flash[:danger] = "Not correct user"
+        redirect_to root_path
+      end
     end
     
     def ensure_admin
