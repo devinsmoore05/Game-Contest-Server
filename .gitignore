@@ -4,6 +4,11 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Ignore all uploaded data files
+/code/managers/development/*
+/code/managers/test/*
+/code/managers/production/*
+
 # Ignore bundler config.
 /.bundle
 
@@ -17,4 +22,9 @@
 *~
 *.swp
 
+<<<<<<< HEAD
 Gemfile.lock
+=======
+# Be sure to keep around this file if it matched earlier
+!.gitkeep
+>>>>>>> 4b4494008ef6b2840b0b84d13f14c267a47c118c
