@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Referee do
-<<<<<<< HEAD
-  pending "add some examples to (or delete) #{__FILE__}"
-=======
   let (:referee) { FactoryGirl.create(:referee) }
   subject { referee }
 
@@ -17,5 +14,4 @@ describe Referee do
   describe "validations" do
     it { should be_valid }
   end
->>>>>>> 4b4494008ef6b2840b0b84d13f14c267a47c118c
 end

@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Player do
-<<<<<<< HEAD
-  pending "add some examples to (or delete) #{__FILE__}"
-=======
   let (:player) { FactoryGirl.create(:player) }
   subject { player }
 
@@ -22,5 +19,4 @@ describe Player do
     specify { expect_required_attribute(:user) }
     specify { expect_required_attribute(:contest) }
   end
->>>>>>> 4b4494008ef6b2840b0b84d13f14c267a47c118c
 end
