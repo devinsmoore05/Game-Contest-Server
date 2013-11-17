@@ -1,0 +1,9 @@
+<h1>Contest Information</h1>
+
+<p><%= @contest.name %></p> 
+<p><%= link_to @contest.user.username, @contest.user.username %></p>
+<p><%= @contest.description %></p>
+<p><%= link_to @contest.referee.name, @contest.referee.name %></p>
+<p><%# @contest.referee.name %></p>
+<p><%= @contest.contest_type %></p>
+

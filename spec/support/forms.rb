@@ -22,6 +22,29 @@ def select_datetime(datetime, field)
 end
 
 # begin JGG code
+def select_illegal_datetime(field, bad_values)
+  base_id = date_base_id(field)
+
+  #
+  # Go ahead 1 year so that all dates will be in the future and not in
+  # the past.  This just ensures we don't make any silly time
+  # mistakes.
+  #
+  select_datetime(1.year.from_now, field)
+  [:year, :month, :day, :hour, :min].each_with_index do |type, index|
+    select_id = "#{base_id}_#{(index + 1).to_s}i"
+
+    if bad_values[type]
+      select_value = bad_values[type]
+      if type = :hour || :type == :min
+	select_value = select_value.to_s.rjust(2, '0')
+      end
+
+      select select_value, from: select_id
+    end
+  end
+end
+
 def expect_date_select(date, field)
   base_id = date_base_id(field)
 

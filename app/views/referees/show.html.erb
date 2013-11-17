@@ -1,0 +1,6 @@
+<h1>Referee Information</h1>
+
+<p>Name: <%= @referee.name %></p>
+<p>User: <%= @referee.user.username %></p>
+<p><%= link_to "Rules", @referee.rules_url %></p>
+<p>Players per game:<%= @referee.players_per_game %></p>

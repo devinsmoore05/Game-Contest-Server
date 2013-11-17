@@ -5,7 +5,11 @@ GameContestServer::Application.routes.draw do
   #root_url => '/users(.:format)'
   
   resources :users
+  resources :referees
   resources :sessions, only: [:new, :create, :destroy]
+  resources :players
+  resources :matches
+  resources :contests
   
   #get 'users/new', as: "signup"
   get 'signup', to: 'users#new', as: 'signup'

@@ -2,3 +2,31 @@
 
 <p><%= @user.username %>: <%= @user.email %></p>
 
+<h2>Players</h2>
+<ul>
+  <% @user.players.each do |player| %>
+  <li><%= link_to player.name, player %></li>
+  <% if logged_in? %>
+  |<%= link_to 'delete', player_path(player), method: :delete, data: {confirm: 'Are you sure?' } %>
+  <% end %>
+  <% end %>
+</ul>
+<%= pluralize(Player.count, "player") %>  
+<%= link_to 'New Player', new_player_path %>
+
+
+<% if @user.contest_creator %>
+  <h2>Referees</h2>
+  
+  <ul>
+    <% @user.referees.each do |referee| %>
+    <li><%= link_to referee.name, referee %></li>
+    <% if logged_in? %>
+    |<%= link_to 'delete', referee_path(referee), method: :delete, data: {confirm: 'Are you sure?' } %>
+    <% end %>
+    <% end %>
+  </ul>
+  <%= pluralize(Referee.count, "referee") %>
+  <%= link_to 'New Referee', new_referee_path %>
+<% end %>
+

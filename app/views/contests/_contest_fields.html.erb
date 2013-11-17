@@ -1,0 +1,23 @@
+<% if @contest.errors.any? %>
+  <div class='alert alert-danger'>
+		<p> There are <% @contest.errors.count %> errors. </p>
+  </div>
+		<ul>
+			<% @contest.errors.full_messages.each do |message| %>
+				<li><%= message %> </li>
+			<% end %>	
+		</ul>
+<% end %>
+
+<%= f.label :description, 'Description: ' %>
+<%= f.text_field :description %>
+<%= f.label :contest_type, 'Contest Type: ' %>
+<%= f.text_field :contest_type %>
+<%= f.label :name, 'Name: ' %>
+<%= f.text_field :name%>
+  <%= f.label :referee_id, 'Referee' %>
+<%= f.collection_select :referee_id, Referee.all, :id, :name, {}, class: 'form-control' %>
+<%= f.label :start, 'Start: ' %>
+<%= f.datetime_select :start %>
+<%= f.label :deadline, 'Deadline: ' %>
+<%= f.datetime_select :deadline %>
