@@ -1,5 +1,7 @@
 <h1>Contest Information</h1>
 
+<%= link_to 'Create player', new_contest_player_path(@contest) %>
+
 <p><%= @contest.name %></p> 
 <p><%= link_to @contest.user.username, @contest.user.username %></p>
 <p><%= @contest.description %></p>

@@ -12,7 +12,7 @@
   <% end %>
 </ul>
 <%= pluralize(Player.count, "player") %>  
-<%= link_to 'New Player', new_player_path %>
+<%= link_to 'New Player', user_path(@user) %>
 
 
 <% if @user.contest_creator %>

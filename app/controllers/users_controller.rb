@@ -3,13 +3,17 @@ class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
   before_action :ensure_admin, only: [:destroy]
   
+  respond_to :html, :json, :xml #says I'm expecting requests for data in these three formats and willing to respond.
+  
 	def index
 		@users = User.all
+    respond_with(@users)
 	end
 
 	def new
     if !logged_in?
 		@user = User.new
+    respond_with(@user)
     else
       flash[:warning] = "You must log out to create a user!"
       redirect_to root_path
@@ -24,7 +28,8 @@ class UsersController < ApplicationController
         cookies.signed[:user_id] = @user.id
         flash[:success] = "Welcome to the site #{@user.username}"
 			  #redirect_to user_path(@user) Same thing as line below.
-			  redirect_to @user # Basically give it a 301, then request GET with user details.
+			  #redirect_to @user # Basically give it a 301, then request GET with user details.
+        respond_with(@users)
 		  else
 			  #This will keep whatever elements they previously typed that worked. We remember.
 			  render 'new'
@@ -47,7 +52,8 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 		if @user.update(acceptable_params)
       flash[:success] = "User was updated"
-			redirect_to @user
+			#redirect_to @user
+      respond_with(@users)
 		else
 			render 'edit'
 		end
