@@ -1,5 +1,15 @@
 <h1>Player Information</h1>
 
 <p>Name: <%= @player.name %></p>
-<p>User: <%= @player.user.username %></p>
+<p>User: <%= link_to @player.user.username %></p>
 <p>Description: <%= @player.description %></p>
+<p>Contest: <%= link_to @player.contest.name %></p>
+
+
+<h2>Match</h2>
+<ul>
+  <% @player.player_matches.each do |player_match| %>
+  <li><%= player_match.result %></li> 
+  <li><%= player_match.score %></li> 
+  <% end %>
+</ul>

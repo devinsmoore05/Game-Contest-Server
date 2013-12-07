@@ -5,7 +5,7 @@ class PlayersController < ApplicationController
   # /contests/:contest_id/players/new
   def new
     contest = Contest.find(params[:contest_id])
-    @player = current_user.contest.players.build
+    @player = contest.players.build
   end 
   
   # /contests/:contest_id/players

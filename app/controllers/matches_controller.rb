@@ -12,6 +12,7 @@ class MatchesController < ApplicationController
   end
   
   def show
+    @match = Match.find_by_id(params[:id])
   end
   
   def edit

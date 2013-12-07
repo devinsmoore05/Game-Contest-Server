@@ -52,8 +52,8 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 		if @user.update(acceptable_params)
       flash[:success] = "User was updated"
-			#redirect_to @user
-      respond_with(@users)
+			redirect_to @user
+      #respond_with(@users)
 		else
 			render 'edit'
 		end

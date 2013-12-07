@@ -1,0 +1,8 @@
+<h1> Create a new match </h1>
+
+<%= form_for [@match.contest,@match] do |f| %>
+
+<%= render 'match_fields', f: f %>
+
+<%= f.submit 'Create Match' %>
+<% end %>
