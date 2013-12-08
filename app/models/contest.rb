@@ -1,10 +1,10 @@
 class Contest < ActiveRecord::Base
   validates :user, presence: true
   validates :referee, presence: true
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validate :start_after_deadline
-  validates :start, presence: true
-  validates :deadline, presence: true
+  validates_date :start, presence: true
+  validates_date :deadline, presence: true
   
   belongs_to :user
   belongs_to :referee

@@ -13,7 +13,7 @@ class PlayersController < ApplicationController
     contest = Contest.find(params[:contest_id])
     @player = contest.players.build(acceptable_params)
     if @player.save
-      flash[:success] = "Player created!"
+      flash[:success] = "Player #{@player.name} created"
       redirect_to @player
     else
       render 'new'
@@ -48,7 +48,7 @@ class PlayersController < ApplicationController
       if @player.destroy
         #File::delete(@player.file_location)
         flash[:success] = "Player was deleted"
-        redirect_to players_path
+        redirect_to contest_players_path(@player.contest)
       else
         flash[:danger] = "Could not delete player"
         redirect_to @player
